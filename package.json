@@ -1,0 +1,28 @@
+{
+  "name": "dowthink",
+  "version": "1.0.0",
+  "description": "do what think",
+  "main": "main.cjs",
+  "scripts": {
+    "dev": "wasp dev",
+    "build": "wasp build",
+    "dev:electron": "wasp dev | electron . --environment NODE_ENV:development",
+    "build:electron": "electron-builder"
+  },
+  "author": "tutu@fantufantu.com",
+  "license": "MIT",
+  "dependencies": {
+    "@aiszlab/bee": "^1.3.3",
+    "@aiszlab/relax": "^1.3.3",
+    "musae": "^0.2.20",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@aiszlab/wasp": "^1.3.5",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "electron": "^32.0.1"
+  }
+}
