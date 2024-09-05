@@ -1,15 +1,16 @@
 import { bootstrap } from '@aiszlab/bee'
+import Application from './application'
 import Chat from './pages/chat'
-import Layout from './layout'
 import './index.css'
 
 bootstrap({
   selectors: '#root',
-  render: () => null,
+  // TODO: remove
+  render: Application,
   routes: [
     {
       path: '/',
-      element: <Layout />,
+      element: <Application />,
       children: [
         {
           path: 'chat',
