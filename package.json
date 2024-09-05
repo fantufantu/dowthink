@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wasp dev",
     "build": "wasp build",
-    "dev:electron": "wasp dev | electron . --environment NODE_ENV:development",
+    "dev:electron": "wasp dev | electron .",
     "build:electron": "electron-builder"
   },
   "author": "tutu@fantufantu.com",

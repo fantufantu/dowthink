@@ -7,7 +7,7 @@ const createBrowserWindow = () => {
     title: 'dowthink'
   })
 
-  _window.loadURL('./dist/index.html')
+  _window.loadURL('http://localhost:9527/')
 }
 
 // This method will be called when Electron has finished
