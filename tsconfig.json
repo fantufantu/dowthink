@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src", "@aiszlab/wasp/env"]
 }

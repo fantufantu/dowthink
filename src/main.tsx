@@ -1,12 +1,15 @@
 import { bootstrap } from '@aiszlab/bee'
 import Application from './application'
-import Chat from './pages/chat'
+import 'musae/styles.css'
 import './index.css'
-import Home from './pages/home'
+import Today from './pages/today'
+import Inbox from './pages/inbox'
+import Review from './pages/review'
+import Planner from './pages/planner'
+import NewTask from './pages/new-task'
 
 bootstrap({
   selectors: '#root',
-  // TODO: remove
   render: Application,
   routes: [
     {
@@ -14,13 +17,13 @@ bootstrap({
       element: <Application />,
       children: [
         {
-          path: '/',
-          element: <Home />
+          index: true,
+          element: <Today />
         },
-        {
-          path: 'chat',
-          element: <Chat />
-        }
+        { path: 'inbox', element: <Inbox /> },
+        { path: 'review', element: <Review /> },
+        { path: 'planner', element: <Planner /> },
+        { path: 'tasks/new', element: <NewTask /> }
       ]
     }
   ]
