@@ -7,6 +7,7 @@ import type { Task } from '../../domain/task'
 import { getCapacitySummary } from '../../domain/capacity'
 import { isTaskActiveOnDate } from '../../domain/recurrence'
 import { getLocalDateKey } from '../../shared/date'
+import styles from './styles.module.css'
 
 const Today = () => {
   const { tasks, preferences, loading, error, runAction } = useTasks()
@@ -34,11 +35,11 @@ const Today = () => {
   }
 
   return <main className='page today-page'>
-    <header className='page-heading'><div><p className='eyebrow'>{new Intl.DateTimeFormat('zh-CN', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date())}</p><h1>今天，轻一点</h1><p className='page-subtitle'>气球会提醒你：有些事，已经等了一阵子。</p></div><span className='weather-mark'>☁️</span></header>
+    <header className='page-heading'><div><p className='eyebrow'>{new Intl.DateTimeFormat('zh-CN', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date())}</p><h1>今天，轻一点</h1><p className='page-subtitle'>气球会提醒你：有些事，已经等了一阵子。</p></div><span className={styles['weather-mark']}>☁️</span></header>
     <CapacitySummary summary={getCapacitySummary(tasks, today, preferences.dailyCapacity)} />
     {error && <div className='notice notice--error'>{error}</div>}
     {loading ? <div className='loading-state'>正在整理今天的待办…</div> : <>
-      <section className='balloon-section'><div className='section-heading'><h2>今日容器</h2><span>{todayTasks.length} 件</span></div><BalloonContainer tasks={todayTasks} completingId={completingId} onSelect={setSelected} /></section>
+      <section className={styles['balloon-section']}><div className='section-heading'><h2>今日容器</h2><span>{todayTasks.length} 件</span></div><BalloonContainer tasks={todayTasks} completingId={completingId} onSelect={setSelected} /></section>
     </>}
     <TaskDetailSheet task={selected} onClose={() => setSelected(null)} onAction={handleAction} onSchedule={() => {}} onSplit={() => {}} onSomeday={(task) => void handleAction({ action: 'someday', taskId: task.id })} onDelete={(task) => void handleAction({ action: 'delete', taskId: task.id })} />
   </main>

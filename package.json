@@ -10,20 +10,20 @@
   "author": "tutu@fantufantu.com",
   "license": "MIT",
   "dependencies": {
-    "@aiszlab/bee": "^1.3.4",
-    "@aiszlab/relax": "^1.3.4",
+    "@aiszlab/bee": "3.0.0",
+    "@aiszlab/relax": "3.0.0",
     "@tauri-apps/api": "^2.12.4",
     "matter-js": "^0.20.0",
     "musae": "1.3.1-beta.24",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@aiszlab/wasp": "^1.3.6",
+    "@aiszlab/wasp": "3.0.0",
     "@tauri-apps/cli": "^2.12.3",
     "@types/matter-js": "^0.20.2",
     "@types/node": "^22.5.3",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0"
   }
 }

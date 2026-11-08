@@ -1,0 +1,26 @@
+.task-form { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+.task-form > input { flex: 1; min-width: 140px; padding: 10px; border: 0; outline: 0; background: transparent; }
+.task-form__options { display: flex; gap: 12px; width: 100%; padding: 0 10px; }
+.task-form__options label { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 12px; }
+.task-form__options input { width: 110px; padding: 7px; border: 1px solid var(--line); border-radius: 9px; }
+.task-form--page { display: grid; align-items: stretch; gap: 18px; padding: 19px; border-radius: 22px; }
+.task-form__field { display: grid; gap: 8px; min-width: 0; }
+.task-form__field > label,
+.task-form__cycle legend { color: #46556a; font-size: 13px; font-weight: 700; }
+.task-form--page input,
+.task-form--page textarea,
+.task-form--page select { width: 100%; min-width: 0; padding: 12px 13px; border: 1px solid #e3e8f0; outline: none; border-radius: 12px; background: #fbfcfe; color: var(--ink); }
+.task-form--page input:focus,
+.task-form--page textarea:focus,
+.task-form--page select:focus { border-color: #8296ee; box-shadow: 0 0 0 3px #506ee51a; }
+.task-form--page textarea { resize: vertical; line-height: 1.6; }
+.task-form__cycle { margin: 0; padding: 0; border: 0; }
+.task-form__cycle legend { margin-bottom: 8px; }
+.task-form__cycle-controls { display: flex; align-items: center; gap: 9px; }
+.task-form__cycle-controls input { width: 96px; }
+.task-form__cycle-controls select { width: 110px; }
+.task-form__cycle-controls > span { color: var(--muted); font-size: 13px; }
+.task-form__field > small { color: var(--muted); font-size: 11px; line-height: 1.5; }
+.task-form--page .task-form__submit { width: 100%; min-height: 54px; margin-top: 8px; border: 0; border-radius: 15px; background: linear-gradient(135deg, #647ff0, #405fd5); box-shadow: 0 8px 18px #506ee545; color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+.task-form--page .task-form__submit:hover:not(:disabled) { filter: brightness(1.05); box-shadow: 0 10px 22px #506ee55c; }
+.task-form--page .task-form__submit:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 4px 10px #506ee53d; }

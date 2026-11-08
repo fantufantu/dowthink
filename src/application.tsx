@@ -1,12 +1,11 @@
 import { ConfigProvider, ThemeProvider } from 'musae'
 import Layout from './layout'
+import { ReactNode } from 'react'
 
-const Application = () => {
+const Application = ({ children }: { children: ReactNode }) => {
   return (
     <ConfigProvider>
-      <ThemeProvider>
-        <Layout />
-      </ThemeProvider>
+      <ThemeProvider>{children}</ThemeProvider>
     </ConfigProvider>
   )
 }

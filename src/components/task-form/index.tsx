@@ -3,6 +3,7 @@ import type { ComponentRef } from 'react'
 import { Button, Input, Select, Textarea } from 'musae'
 import type { Task, TaskCycleUnit } from '../../domain/task'
 import { makeTaskId } from '../../domain/task'
+import styles from './styles.module.css'
 
 interface TaskFormProps {
   onSave: (task: Task) => Promise<void>
@@ -63,20 +64,20 @@ const TaskForm = ({ onSave, today }: TaskFormProps) => {
     }
   }
 
-  return <form className='task-form task-form--page' onSubmit={submit}>
-    <div className='task-form__field'>
+  return <form className={`${styles['task-form']} ${styles['task-form--page']}`} onSubmit={submit}>
+    <div className={styles['task-form__field']}>
       <label>待办标题
         <Input ref={titleInput} value={title} onChange={setTitle} placeholder='例如：读完这本书' maxLength={120} invalid={attempted && !title.trim()} style={{ width: '100%' }} />
       </label>
     </div>
-    <div className='task-form__field'>
+    <div className={styles['task-form__field']}>
       <label>待办明细
         <Textarea value={notes} onChange={(value) => setNotes(value.slice(0, 2000))} placeholder='补充背景、步骤或其他细节…' rows={4} style={{ width: '100%' }} />
       </label>
     </div>
-    <fieldset className='task-form__field task-form__cycle'>
+    <fieldset className={`${styles['task-form__field']} ${styles['task-form__cycle']}`}>
       <legend>待办周期</legend>
-      <span className='task-form__cycle-controls'>
+      <span className={styles['task-form__cycle-controls']}>
         <label className='sr-only' htmlFor={`${id}-interval`}>周期次数</label>
         <input id={`${id}-interval`} type='number' min='1' step='1' value={interval} onChange={(event) => setInterval(event.target.value)} aria-invalid={attempted && !intervalValid} aria-describedby={`${id}-interval-error`} />
         <label className='sr-only' htmlFor={`${id}-unit`}>周期单位</label>
@@ -94,7 +95,7 @@ const TaskForm = ({ onSave, today }: TaskFormProps) => {
       </span>
       {attempted && !intervalValid && <small id={`${id}-interval-error`} className='form-error' role='alert'>请输入大于 0 的整数周期。</small>}
     </fieldset>
-    <div className='task-form__field'>
+    <div className={styles['task-form__field']}>
       <label htmlFor={`${id}-start`}>开始日期</label>
       <input id={`${id}-start`} type='date' value={startDate} onChange={(event) => setStartDate(event.target.value)} required />
       <small>从开始日期起，这件待办会每天出现在今日页。</small>
@@ -102,7 +103,7 @@ const TaskForm = ({ onSave, today }: TaskFormProps) => {
     {attempted && !title.trim() && <p className='form-error' role='alert'>请填写待办标题。</p>}
     {attempted && !startDate && <p className='form-error' role='alert'>请选择开始日期。</p>}
     {error && <p className='form-error' role='alert'>{error}</p>}
-    <Button className='task-form__submit' type='submit' disabled={saving}>
+    <Button className={styles['task-form__submit']} type='submit' disabled={saving}>
       {saving ? '保存中…' : '创建待办'}
     </Button>
   </form>

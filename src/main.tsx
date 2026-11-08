@@ -2,11 +2,14 @@ import { bootstrap } from '@aiszlab/bee'
 import Application from './application'
 import 'musae/styles.css'
 import './index.css'
+import './styles/global.css'
+import './styles/shared.css'
 import Today from './pages/today'
 import Inbox from './pages/inbox'
 import Review from './pages/review'
 import Planner from './pages/planner'
 import NewTask from './pages/new-task'
+import Layout from './layout'
 
 bootstrap({
   selectors: '#root',
@@ -14,7 +17,7 @@ bootstrap({
   routes: [
     {
       path: '/',
-      element: <Application />,
+      element: <Layout />,
       children: [
         {
           index: true,

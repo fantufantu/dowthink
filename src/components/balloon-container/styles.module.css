@@ -1,0 +1,16 @@
+.balloon-section { margin-bottom: 29px; }
+.balloon-container { position: relative; display: block; min-height: 180px; overflow: hidden; padding: 0; border: 1px solid #edf0f5; border-radius: 24px; background: #fff; transition: height .2s ease; }
+.balloon-container--physics { min-height: 0; padding: 0; overflow: hidden; }
+.balloon-container--physics .balloon-item { position: absolute; z-index: 2; top: 0; left: 0; width: 0; height: 0; }
+.balloon-container--physics .balloon-item__hit { position: absolute; top: 0; left: 0; width: var(--balloon-size); height: var(--balloon-size); transform: translate(-50%, -50%); padding: 0; border: 0; border-radius: 50%; appearance: none; -webkit-appearance: none; background: transparent; -webkit-tap-highlight-color: transparent; cursor: pointer; touch-action: manipulation; }
+.balloon-container--physics .balloon-item__hit:focus-visible { outline: 3px solid #506ee5; outline-offset: 3px; }
+.balloon-container--physics .balloon { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; border-radius: 50%; box-shadow: inset -7px -9px 15px #d9567526; transition: transform .32s ease, opacity .32s ease; }
+.balloon-container--physics .balloon:after { content: none; }
+.balloon-container--physics .balloon-item[data-tone='blue'] .balloon { background: radial-gradient(circle at 32% 25%, #fff 0 4%, #d8e1ff 5%, #9bb4f5 42%, #7892e2 100%); box-shadow: inset -7px -9px 15px #526fbc30; }
+.balloon-container--physics .balloon-item[data-tone='mint'] .balloon { background: radial-gradient(circle at 32% 25%, #fff 0 4%, #d6f2e6 5%, #8dd6bb 42%, #67bb9e 100%); box-shadow: inset -7px -9px 15px #34846d2b; }
+.balloon-container--physics .balloon-item.is-shrinking .balloon { transform: scale(.08); opacity: 0; }
+.balloon-container--physics .balloon-card__title,
+.balloon-container--physics .balloon-card__meta { position: absolute; left: 0; width: max-content; max-width: calc(var(--balloon-size) - 10px); transform: translate(-50%, -50%); overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; text-shadow: 0 1px 3px #ffffffb3; }
+.balloon-container--physics .balloon-card__title { top: -5px; color: #344256; font-size: clamp(9px, calc(var(--balloon-size) * .105), 12px); font-weight: 700; line-height: 1.2; }
+.balloon-container--physics .balloon-card__meta { top: 10px; color: #536174; font-size: clamp(8px, calc(var(--balloon-size) * .08), 10px); line-height: 1; }
+.balloon-container > :global(.empty-state) { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; }

@@ -1,0 +1,11 @@
+.bottom-navigation { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(5, 1fr); height: calc(72px + env(safe-area-inset-bottom)); padding: 8px max(14px, calc((100vw - 480px) / 2)) calc(8px + env(safe-area-inset-bottom)); border-top: 1px solid #e9edf2; background: #fffffff2; backdrop-filter: blur(18px); }
+.bottom-navigation__item { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; border-radius: 14px; color: #98a2b1; font-size: 10px; font-weight: 600; text-decoration: none; }
+.bottom-navigation__icon { font-size: 20px; line-height: 1; }
+.bottom-navigation__item.is-active { color: var(--primary); }
+.bottom-navigation__add { display: flex; justify-self: center; align-self: start; align-items: center; flex-direction: column; gap: 3px; width: 54px; height: 63px; margin-top: -17px; color: var(--ink); font-size: 10px; font-weight: 700; cursor: pointer; }
+.bottom-navigation__add .bottom-navigation__icon-button { display: grid; place-items: center; width: 48px; height: 48px; min-width: 48px; padding: 0; border: 3px solid #fff; border-radius: 50%; background: var(--ink); box-shadow: 0 6px 16px #26344640; color: #fff; }
+.bottom-navigation__add .bottom-navigation__icon-button:active { transform: scale(.95); }
+
+@media (min-width: 700px) {
+  .bottom-navigation { right: auto; left: 50%; width: min(100%, 520px); transform: translateX(-50%); border: 1px solid var(--line); border-bottom: 0; border-radius: 20px 20px 0 0; }
+}

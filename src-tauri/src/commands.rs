@@ -75,6 +75,13 @@ fn format_date_key(year: i64, month: i64, day: i64) -> String {
     format!("{year:04}-{month:02}-{day:02}")
 }
 
+fn add_days_to_date_key(date: &str, days: i64) -> Option<String> {
+    let (year, month, day) = parse_date_key(date)?;
+    let (next_year, next_month, next_day) =
+        civil_from_days(days_from_civil(year, month, day).checked_add(days)?);
+    Some(format_date_key(next_year, next_month, next_day))
+}
+
 fn cycle_boundary(start_date: &str, interval: i64, unit: &str, cycle_number: i64) -> Option<String> {
     let (year, month, day) = parse_date_key(start_date)?;
     let offset = interval.checked_mul(cycle_number)?;
@@ -298,46 +305,56 @@ pub fn process_missed_tasks(
             task["updatedAt"] = Value::String(processed_at.clone());
             upsert_task(&transaction, &task).map_err(|error| error.to_string())?;
         } else {
-            if planned_date >= today_local_date
-                || last_processed_date == Some(planned_date.as_str())
-            {
+            if planned_date >= today_local_date {
                 continue;
             }
 
-            let next_count = task
+            let task_id = task_column(&task, "id").unwrap_or_default();
+            let mut carryover_count = task
                 .get("carryoverCount")
                 .and_then(Value::as_i64)
-                .unwrap_or_default()
-                + 1;
-            task["status"] = Value::String("review".into());
-            task["carryoverCount"] = Value::from(next_count);
-            task["lastProcessedCycleDate"] = Value::String(planned_date.clone());
+                .unwrap_or_default();
+            let mut missed_date = planned_date;
+            while missed_date < today_local_date {
+                if last_processed_date.map_or(true, |last| missed_date.as_str() > last) {
+                    carryover_count += 1;
+                    let next_date = add_days_to_date_key(&missed_date, 1)
+                        .ok_or_else(|| "Invalid task date".to_string())?;
+                    let decision = serde_json::json!({
+                        "id": format!("missed_cycle:{task_id}:{missed_date}"),
+                        "taskId": task_id,
+                        "action": "missed_cycle",
+                        "fromDate": missed_date,
+                        "toDate": next_date,
+                        "createdAt": processed_at.clone(),
+                        "metadata": { "carryoverCount": carryover_count }
+                    });
+                    transaction
+                        .execute(
+                            "INSERT OR IGNORE INTO decisions (id, task_id, action, created_at, payload)
+                             VALUES (?1, ?2, ?3, ?4, ?5)",
+                            params![
+                                task_column(&decision, "id").unwrap_or_default(),
+                                task_column(&decision, "taskId").unwrap_or_default(),
+                                task_column(&decision, "action").unwrap_or_default(),
+                                task_column(&decision, "createdAt").unwrap_or_default(),
+                                decision.to_string()
+                            ],
+                        )
+                        .map_err(|error| error.to_string())?;
+                }
+                missed_date = add_days_to_date_key(&missed_date, 1)
+                    .ok_or_else(|| "Invalid task date".to_string())?;
+            }
+
+            task["plannedDate"] = Value::String(today_local_date.clone());
+            task["carryoverCount"] = Value::from(carryover_count);
+            task["lastProcessedCycleDate"] = Value::String(
+                add_days_to_date_key(&today_local_date, -1)
+                    .ok_or_else(|| "Invalid current date".to_string())?,
+            );
             task["updatedAt"] = Value::String(processed_at.clone());
             upsert_task(&transaction, &task).map_err(|error| error.to_string())?;
-
-            let task_id = task_column(&task, "id").unwrap_or_default();
-            let decision = serde_json::json!({
-                "id": format!("missed_cycle:{task_id}:{planned_date}"),
-                "taskId": task_id,
-                "action": "missed_cycle",
-                "fromDate": planned_date,
-                "toDate": null,
-                "createdAt": processed_at.clone(),
-                "metadata": { "carryoverCount": next_count }
-            });
-            transaction
-                .execute(
-                    "INSERT OR IGNORE INTO decisions (id, task_id, action, created_at, payload)
-                     VALUES (?1, ?2, ?3, ?4, ?5)",
-                    params![
-                        task_column(&decision, "id").unwrap_or_default(),
-                        task_column(&decision, "taskId").unwrap_or_default(),
-                        task_column(&decision, "action").unwrap_or_default(),
-                        task_column(&decision, "createdAt").unwrap_or_default(),
-                        decision.to_string()
-                    ],
-                )
-                .map_err(|error| error.to_string())?;
         }
     }
 

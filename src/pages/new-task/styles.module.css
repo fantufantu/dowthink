@@ -1,0 +1,5 @@
+.new-task-page__heading { align-items: center; }
+
+@media (max-width: 380px) {
+  .new-task-page__heading { align-items: flex-start; }
+}

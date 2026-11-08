@@ -1,0 +1,7 @@
+.review-stack { display: grid; gap: 14px; }
+.review-card { padding: 20px; border-radius: 21px; background: #fff; box-shadow: 0 7px 25px #233c610a; }
+.review-card h2 { margin: 13px 0 7px; font-size: 18px; }
+.review-card p { color: var(--muted); font-size: 12px; }
+.review-card__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+.review-card__actions :global(.button) { padding: 9px 10px; font-size: 11px; }
+.text-button { padding: 9px; border: 0; background: none; color: #a35d5b; font-size: 12px; }

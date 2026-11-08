@@ -1,0 +1,7 @@
+.week-strip { display: flex; justify-content: space-between; margin: 0 0 24px; padding: 14px 8px; border-radius: 19px; background: #fff; }
+.week-day { display: flex; align-items: center; flex-direction: column; gap: 6px; min-width: 38px; color: #8793a3; }
+.week-day small { font-size: 10px; }
+.week-day strong { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; color: #49576a; font-size: 13px; }
+.week-day.is-today strong { background: var(--primary); color: #fff; }
+.planner-day { padding: 15px 0 22px; border-bottom: 1px solid var(--line); }
+.planner-day :global(.section-heading) { margin: 0; }

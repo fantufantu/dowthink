@@ -2,6 +2,7 @@ import { Bodies, Body, Composite, Engine, Query } from "matter-js";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Task } from "../../domain/task";
 import { getBalloonDiameter } from "../../domain/capacity";
+import styles from "./styles.module.css";
 
 interface BalloonContainerProps {
   tasks: Task[];
@@ -218,7 +219,7 @@ const BalloonContainer = ({
   return (
     <div
       ref={containerRef}
-      className={`balloon-container${tasks.length ? " balloon-container--physics" : ""}`}
+      className={`${styles['balloon-container']}${tasks.length ? ` ${styles['balloon-container--physics']}` : ''}`}
       style={{ height: `${stageHeight + 2}px` }}
     >
       {balloons.map(({ task, diameter, tone }) => (
@@ -228,7 +229,7 @@ const BalloonContainer = ({
             if (element) elementsRef.current.set(task.id, element);
             else elementsRef.current.delete(task.id);
           }}
-          className={`balloon-item${task.id === completingId ? " is-shrinking" : ""}`}
+          className={`${styles['balloon-item']}${task.id === completingId ? ` ${styles['is-shrinking']}` : ''}`}
           data-tone={tone}
           style={
             {
@@ -238,14 +239,14 @@ const BalloonContainer = ({
         >
           <button
             type="button"
-            className="balloon-item__hit"
+            className={styles['balloon-item__hit']}
             onClick={() => onSelect(task)}
             aria-label={`${task.title}，未完成 ${task.carryoverCount} 个周期`}
           >
-            <span className="balloon" aria-hidden="true" />
+            <span className={styles['balloon']} aria-hidden="true" />
           </button>
-          <span className="balloon-card__title">{task.title}</span>
-          <span className="balloon-card__meta">
+          <span className={styles['balloon-card__title']}>{task.title}</span>
+          <span className={styles['balloon-card__meta']}>
             {task.load ?? "—"} 点
             {task.carryoverCount ? ` · ${task.carryoverCount} 周期` : ""}
           </span>

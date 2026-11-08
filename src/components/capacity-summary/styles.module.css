@@ -1,0 +1,19 @@
+.capacity-summary {
+  display: block;
+  width: 100%;
+  margin-bottom: 28px;
+  padding: 18px 19px;
+  border: 0;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #eff2ff, #f8f8ff);
+  text-align: left;
+}
+
+.capacity-summary__topline { display: flex; align-items: baseline; justify-content: space-between; }
+.capacity-summary__label { color: #8793a3; font-size: 12px; }
+.capacity-summary__topline strong { font-size: 16px; }
+.capacity-summary__track { height: 8px; margin: 13px 0 9px; overflow: hidden; border-radius: 99px; background: #fff; }
+.capacity-summary__track span { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #7189f4, #89a3fa); transition: width .3s; }
+.capacity-summary__track.is-overflow span { background: #ff9284; }
+.capacity-summary__foot { color: #8793a3; font-size: 12px; text-align: right; }
+.capacity-summary__foot.is-overflow { color: #c3655c; }

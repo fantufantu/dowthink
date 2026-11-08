@@ -1,5 +1,6 @@
 import type { Task, TaskDecision } from './task'
 import { getElapsedCycleBoundaries } from './recurrence'
+import { addDaysToDateKey } from '../shared/date'
 
 export interface MissedTaskTransition {
   tasks: Task[]
@@ -49,30 +50,33 @@ export const transitionMissedTasks = (
       }
     }
 
-    if (
-      missedPlannedDate >= todayLocalDate ||
-      task.lastProcessedCycleDate === missedPlannedDate
-    ) {
-      return task
+    if (missedPlannedDate >= todayLocalDate) return task
+
+    let carryoverCount = task.carryoverCount
+    let missedDate = missedPlannedDate
+    while (missedDate < todayLocalDate) {
+      if (missedDate > (task.lastProcessedCycleDate || '')) {
+        carryoverCount += 1
+        decisions.push({
+          id: `missed_cycle:${task.id}:${missedDate}`,
+          taskId: task.id,
+          action: 'missed_cycle',
+          fromDate: missedDate,
+          toDate: addDaysToDateKey(missedDate, 1),
+          createdAt: processedAt,
+          metadata: { carryoverCount }
+        })
+      }
+      missedDate = addDaysToDateKey(missedDate, 1)
     }
 
-    const updatedTask: Task = {
+    return {
       ...task,
-      status: 'review',
-      carryoverCount: task.carryoverCount + 1,
-      lastProcessedCycleDate: missedPlannedDate,
+      plannedDate: todayLocalDate,
+      carryoverCount,
+      lastProcessedCycleDate: addDaysToDateKey(todayLocalDate, -1),
       updatedAt: processedAt
     }
-    decisions.push({
-      id: `missed_cycle:${task.id}:${missedPlannedDate}`,
-      taskId: task.id,
-      action: 'missed_cycle',
-      fromDate: missedPlannedDate,
-      toDate: null,
-      createdAt: processedAt,
-      metadata: { carryoverCount: updatedTask.carryoverCount }
-    })
-    return updatedTask
   })
 
   return { tasks: updatedTasks, decisions }

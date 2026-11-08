@@ -54,10 +54,11 @@ export const applyTaskAction = (
 
     const restored: Task = {
       ...previous,
-      status:
+      status: previous.status,
+      plannedDate:
         previous.status === 'planned' && previous.plannedDate && previous.plannedDate < todayLocalDate
-          ? 'review'
-          : previous.status,
+          ? todayLocalDate
+          : previous.plannedDate,
       carryoverCount: Math.max(previous.carryoverCount, task.carryoverCount),
       lastProcessedCycleDate: task.lastProcessedCycleDate ?? previous.lastProcessedCycleDate,
       deletedAt: previous.deletedAt,

@@ -2,6 +2,7 @@ import { useNavigate } from '@aiszlab/bee/router'
 import TaskForm from '../../components/task-form'
 import { useTasks } from '../../hooks/use-tasks'
 import { getLocalDateKey } from '../../shared/date'
+import styles from './styles.module.css'
 
 const NewTask = () => {
   const { preferences, loading, error, saveTask } = useTasks()
@@ -18,8 +19,8 @@ const NewTask = () => {
     else navigate('/today', { replace: true })
   }
 
-  return <main className='page new-task-page'>
-    <header className='page-heading new-task-page__heading'>
+  return <main className='page'>
+    <header className={`page-heading ${styles['new-task-page__heading']}`}>
       <div>
         <p className='eyebrow'>记下想持续完成的事</p>
         <h1>添加待办</h1>
