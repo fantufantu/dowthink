@@ -37,7 +37,7 @@ const BalloonContainer = ({
       tasks.map((task, index) => ({
         task,
         diameter: getBalloonDiameter(task.carryoverCount),
-        tone: ["coral", "blue", "mint"][index % 3],
+        tone: ["peach", "sage", "honey"][index % 3],
       })),
     [tasks],
   );

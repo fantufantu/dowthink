@@ -1,3 +1,4 @@
+import { BottomSheet } from 'musae'
 import styles from './styles.module.css'
 
 interface ConfirmCompletionProps {
@@ -10,13 +11,15 @@ interface ConfirmCompletionProps {
 }
 
 const ConfirmCompletion = ({ open, taskTitle, busy = false, error, onCancel, onConfirm }: ConfirmCompletionProps) => {
-  if (!open) return null
   return (
-    <div className={`sheet-scrim ${styles['sheet-scrim--nested']}`} role='presentation' onMouseDown={(event) => {
-      if (event.target === event.currentTarget && !busy) onCancel()
-    }}>
-      <section className={styles['confirm-sheet']} role='dialog' aria-modal='true' aria-labelledby='confirm-title'>
-        <div className='sheet-handle' />
+    <BottomSheet
+      open={open}
+      onClose={() => { if (!busy) onCancel() }}
+      closable={false}
+      height='auto'
+      panelClassName={styles['confirm-sheet']}
+    >
+      <section className={styles['confirm-sheet__content']} role='dialog' aria-modal='true' aria-labelledby='confirm-title'>
         <div className={styles['confirm-sheet__balloon']} aria-hidden='true'>🎈</div>
         <h3 id='confirm-title'>这件事完成了吗？</h3>
         <p className={styles['confirm-sheet__task']}>{taskTitle}</p>
@@ -29,7 +32,7 @@ const ConfirmCompletion = ({ open, taskTitle, busy = false, error, onCancel, onC
           </button>
         </div>
       </section>
-    </div>
+    </BottomSheet>
   )
 }
 

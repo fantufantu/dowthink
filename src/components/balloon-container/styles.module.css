@@ -1,16 +1,116 @@
 .balloon-section { margin-bottom: 29px; }
-.balloon-container { position: relative; display: block; min-height: 180px; overflow: hidden; padding: 0; border: 1px solid #edf0f5; border-radius: 24px; background: #fff; transition: height .2s ease; }
+
+.balloon-container {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  min-height: 180px;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid #f0e9dd;
+  border-radius: 28px;
+  background: linear-gradient(155deg, #fffdf8 0%, #fbf5e9 55%, #f3eee5 100%);
+  box-shadow: inset 0 1px 0 #ffffffd9, 0 10px 28px #9c845410;
+  transition: height .2s ease;
+}
+
+.balloon-container::before,
+.balloon-container::after {
+  position: absolute;
+  z-index: 0;
+  content: '';
+  pointer-events: none;
+}
+
+.balloon-container::before {
+  inset: 0;
+  background: radial-gradient(ellipse 72% 48% at 50% 22%, #fffdf1b8 0%, #fffdf14d 50%, transparent 100%);
+}
+
+.balloon-container::after {
+  right: -12%;
+  bottom: -25%;
+  left: -12%;
+  height: 47%;
+  border-radius: 50% 50% 0 0 / 22% 22% 0 0;
+  background: linear-gradient(180deg, #eee2cd99 0%, #eadcc7b8 100%);
+  box-shadow: 0 -8px 22px #b99b6b0d;
+}
+
 .balloon-container--physics { min-height: 0; padding: 0; overflow: hidden; }
 .balloon-container--physics .balloon-item { position: absolute; z-index: 2; top: 0; left: 0; width: 0; height: 0; }
 .balloon-container--physics .balloon-item__hit { position: absolute; top: 0; left: 0; width: var(--balloon-size); height: var(--balloon-size); transform: translate(-50%, -50%); padding: 0; border: 0; border-radius: 50%; appearance: none; -webkit-appearance: none; background: transparent; -webkit-tap-highlight-color: transparent; cursor: pointer; touch-action: manipulation; }
-.balloon-container--physics .balloon-item__hit:focus-visible { outline: 3px solid #506ee5; outline-offset: 3px; }
-.balloon-container--physics .balloon { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; border-radius: 50%; box-shadow: inset -7px -9px 15px #d9567526; transition: transform .32s ease, opacity .32s ease; }
-.balloon-container--physics .balloon:after { content: none; }
-.balloon-container--physics .balloon-item[data-tone='blue'] .balloon { background: radial-gradient(circle at 32% 25%, #fff 0 4%, #d8e1ff 5%, #9bb4f5 42%, #7892e2 100%); box-shadow: inset -7px -9px 15px #526fbc30; }
-.balloon-container--physics .balloon-item[data-tone='mint'] .balloon { background: radial-gradient(circle at 32% 25%, #fff 0 4%, #d6f2e6 5%, #8dd6bb 42%, #67bb9e 100%); box-shadow: inset -7px -9px 15px #34846d2b; }
+.balloon-container--physics .balloon-item__hit:focus-visible { outline: 3px solid #8c704b; outline-offset: -5px; }
+
+.balloon-container--physics .balloon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border-radius: 50%;
+  box-shadow: inset -7px -9px 17px #8063471a, inset 2px 3px 12px #ffffffaa, 0 7px 15px #77634c1c;
+  transition: transform .32s ease, opacity .32s ease;
+}
+
+.balloon-container--physics .balloon::before {
+  content: '';
+  position: absolute;
+  top: 17%;
+  left: 23%;
+  width: 25%;
+  height: 11%;
+  border-radius: 50%;
+  background: #ffffff91;
+  filter: blur(1px);
+  transform: rotate(-34deg);
+}
+
+.balloon-container--physics .balloon::after {
+  content: '';
+  position: absolute;
+  top: 19%;
+  right: 21%;
+  width: max(2px, 4%);
+  height: max(2px, 4%);
+  border-radius: 50%;
+  background: #ffffffc7;
+  box-shadow: 0 0 6px #fff9;
+}
+
+.balloon-container--physics .balloon-item[data-tone='peach'] .balloon {
+  background: radial-gradient(circle at 34% 29%, #fff7eb 0%, #f1d1b1 48%, #e3b18f 100%);
+  box-shadow: inset -7px -9px 17px #995d3c20, inset 2px 3px 12px #ffffffbd, 0 7px 15px #8e644b1c;
+}
+
+.balloon-container--physics .balloon-item[data-tone='sage'] .balloon {
+  background: radial-gradient(circle at 34% 29%, #fff9e9 0%, #dfe2bd 48%, #becb9c 100%);
+  box-shadow: inset -7px -9px 17px #61734a21, inset 2px 3px 12px #ffffffbd, 0 7px 15px #68734f1c;
+}
+
+.balloon-container--physics .balloon-item[data-tone='honey'] .balloon {
+  background: radial-gradient(circle at 34% 29%, #fff8df 0%, #f0d794 48%, #dfbc6f 100%);
+  box-shadow: inset -7px -9px 17px #98754120, inset 2px 3px 12px #ffffffbd, 0 7px 15px #8e754b1c;
+}
+
 .balloon-container--physics .balloon-item.is-shrinking .balloon { transform: scale(.08); opacity: 0; }
+
 .balloon-container--physics .balloon-card__title,
-.balloon-container--physics .balloon-card__meta { position: absolute; left: 0; width: max-content; max-width: calc(var(--balloon-size) - 10px); transform: translate(-50%, -50%); overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; text-shadow: 0 1px 3px #ffffffb3; }
-.balloon-container--physics .balloon-card__title { top: -5px; color: #344256; font-size: clamp(9px, calc(var(--balloon-size) * .105), 12px); font-weight: 700; line-height: 1.2; }
-.balloon-container--physics .balloon-card__meta { top: 10px; color: #536174; font-size: clamp(8px, calc(var(--balloon-size) * .08), 10px); line-height: 1; }
-.balloon-container > :global(.empty-state) { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.balloon-container--physics .balloon-card__meta {
+  position: absolute;
+  left: 0;
+  width: max-content;
+  max-width: calc(var(--balloon-size) - 10px);
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 1px 2px #fff9;
+}
+
+.balloon-container--physics .balloon-card__title { top: -5px; color: #514638; font-size: clamp(10px, calc(var(--balloon-size) * .105), 12px); font-weight: 700; line-height: 1.25; letter-spacing: -.02em; }
+.balloon-container--physics .balloon-card__meta { top: 10px; color: #746957; font-size: clamp(9px, calc(var(--balloon-size) * .08), 10px); line-height: 1; }
+.balloon-container > :global(.empty-state) { position: absolute; z-index: 3; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; }

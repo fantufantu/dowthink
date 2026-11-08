@@ -1,5 +1,5 @@
-.sheet-scrim--nested { z-index: 10; align-items: flex-end; }
-.confirm-sheet { width: min(100%, 420px); padding: 9px 23px calc(24px + env(safe-area-inset-bottom)); border-radius: 26px 26px 0 0; background: #fff; text-align: center; animation: sheet-in .2s ease-out; }
+.confirm-sheet { width: min(100%, 420px); height: auto; max-height: 100dvh; margin-inline: auto; padding: 9px 23px calc(24px + env(safe-area-inset-bottom)); border-radius: 26px 26px 0 0; background: #fff; text-align: center; }
+.confirm-sheet__content { width: 100%; overflow-y: auto; }
 .confirm-sheet__balloon { margin: 4px 0; font-size: 39px; }
 .confirm-sheet h3 { margin: 7px 0; font-size: 20px; }
 .confirm-sheet__task { margin: 12px 0 5px; font-size: 14px; font-weight: 600; }
